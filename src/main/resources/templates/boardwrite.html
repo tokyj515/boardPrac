@@ -13,13 +13,13 @@
         margin-top: 40px;
     }
 
-    .layout > input, textarea{
+    .layout input, textarea{
         width: 100%;
         box-sizing: border-box;
         margin-top: 10px;
     }
 
-    .layout > textarea{
+    .layout textarea{
         min-height: 300px;
     }
 
@@ -28,9 +28,12 @@
 
 <body>
     <div class="layout">
-        <input type="text">
-        <textarea></textarea>
-        <button>작성</button>
+        <form action="/board/writepro" method="post">
+            <input name="title" type="text">
+            <textarea name="content"></textarea>
+            <button type="submit">작성</button>
+            <!--작성하기 버튼을 누르면 title에 작성한 제목이, content에 작성한 내용이 담겨서 서버로 넘어감-->
+        </form>
     </div>
 
 </body>

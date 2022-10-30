@@ -16,7 +16,7 @@ public class Board { //우리가 만든 테이블 이름과 같게 해주는 게
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String title;

@@ -43,8 +43,14 @@ public class BoardController {
     public String boardList(Model model){
         model.addAttribute("list", boardService.boardList());
         //boardService.boardList()를 통해 반환되는 리턴값을 "list"란 이름으로 받아서 클라에 넘겨줌
+
+
+
         return "boardlist";
     }
 
-
+    @GetMapping("/board/view")
+    public String boardView(){
+        return "boardview";
+    }
 }

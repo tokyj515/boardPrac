@@ -36,5 +36,9 @@ public class BoardService {
     }
 
 
+    //특정 게시글 삭제
+    public void boardDelete(int id){
+        boardRepository.deleteById(id);
+    }
 
 }

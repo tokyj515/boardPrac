@@ -54,4 +54,14 @@ public class BoardController {
         model.addAttribute("board", boardService.boardView(id));
         return "boardview";
     }
+
+
+    @GetMapping("/board/delete")
+    public String boardDelete(int id){
+        boardService.boardDelete(id);
+        return "redirect:/board/list";  //게시글을 삭제하면 보통 리스트로 돌아감
+    }
+
+
+
 }

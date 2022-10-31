@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class BoardController {
         //System.out.println(board.getId()); -> 확인차 사용
         //String title, String content -> 매개변수가 많아지면 다 기억할 수도 없고 귀찮기 때문에 객체로 받아옴
 
-        boardService.write(board);
+        boardService.boardWrite(board);
 
         return "";
     }
@@ -63,5 +64,22 @@ public class BoardController {
     }
 
 
+    @GetMapping("/board/modify/{id}")
+    public String boardModify(@PathVariable("id") int id, Model model){
+        model.addAttribute("board", boardService.boardView(id));
+        return "boardmodify";
+    }
+
+
+    @PostMapping("/board/update/{id}")
+    public String boardUpdate(@PathVariable("id") int id, Board board){
+        Board boardTemp = boardService.boardView(id); //기존 글을 불러옴
+        boardTemp.setTitle(board.getTitle()); //새로운 제목
+        boardTemp.setContent(board.getContent()); //새로운 내용
+
+        boardService.boardWrite(boardTemp); //변경 내용 다시 저장
+
+        return "redirect:/board/list";
+    }
 
 }

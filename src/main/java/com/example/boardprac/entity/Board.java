@@ -3,6 +3,7 @@ package com.example.boardprac.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 //@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 public class Board { //우리가 만든 테이블 이름과 같게 해주는 게 좋음(연결할 테이블)
 
@@ -29,5 +31,6 @@ public class Board { //우리가 만든 테이블 이름과 같게 해주는 게
         this.title = title;
         this.content = content;
     }
+
 
 }

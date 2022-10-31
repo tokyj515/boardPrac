@@ -26,6 +26,12 @@ public class Board { //우리가 만든 테이블 이름과 같게 해주는 게
     @Column(nullable = false)
     private String content;
 
+    @Column
+    private String filename;
+
+    @Column
+    private String filepath;
+
 
     public Board(String title, String content){
         this.title = title;

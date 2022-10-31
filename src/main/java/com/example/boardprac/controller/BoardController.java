@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,12 +31,12 @@ public class BoardController {
 
 
     @PostMapping("/board/writepro") //form 태그의 url과 일치해야 함
-    public String boardWritePro(Board board, Model model){
+    public String boardWritePro(Board board, Model model, MultipartFile file) throws IOException {
         //boardWriteProcess
         //System.out.println(board.getId()); -> 확인차 사용
         //String title, String content -> 매개변수가 많아지면 다 기억할 수도 없고 귀찮기 때문에 객체로 받아옴
 
-        boardService.boardWrite(board);
+        boardService.boardWrite(board, file);
 
         //if문을 통해 글 작성이 실패했을 때의 경우도 만들 수 있다
         //model.addAttribute("message", "글 작성이 실패하였습니다.");
@@ -77,12 +80,12 @@ public class BoardController {
 
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") int id, Board board, Model model){
+    public String boardUpdate(@PathVariable("id") int id, Board board, Model model, MultipartFile file) throws IOException {
         Board boardTemp = boardService.boardView(id); //기존 글을 불러옴
         boardTemp.setTitle(board.getTitle()); //새로운 제목
         boardTemp.setContent(board.getContent()); //새로운 내용
 
-        boardService.boardWrite(boardTemp); //변경 내용 다시 저장
+        boardService.boardWrite(boardTemp, file); //변경 내용 다시 저장
 
         model.addAttribute("message", "글 수정이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");

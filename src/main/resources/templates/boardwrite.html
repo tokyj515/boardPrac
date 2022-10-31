@@ -23,14 +23,19 @@
         min-height: 300px;
     }
 
+    .layout button{
+        margin-top: 10px;
+    }
+
 
 </style>
 
 <body>
     <div class="layout">
-        <form action="/board/writepro" method="post">
+        <form action="/board/writepro" method="post" enctype="multipart/form-data">
             <input name="title" type="text">
             <textarea name="content"></textarea>
+            <input name="file" type="file">
             <button type="submit">작성</button>
             <!--작성하기 버튼을 누르면 title에 작성한 제목이, content에 작성한 내용이 담겨서 서버로 넘어감-->
         </form>

@@ -14,6 +14,7 @@
   }
 
   .layout table{
+    margin-top: 20px;
     margin-bottom: 20px;
   }
 
@@ -22,6 +23,11 @@
 
 <body>
   <div class="layout">
+
+    <form th:action="@{/board/write}" method="get">
+      <button type="submit">새로운 글 작성</button>
+    </form>
+
     <table>
       <thead>
         <tr>

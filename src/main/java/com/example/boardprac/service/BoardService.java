@@ -61,6 +61,14 @@ public class BoardService {
     }
 
 
+
+    //찾는 키워드가 있는 글을 찾아서 페이징 처리 후 보여주기
+    public Page<Board> boardSearchList(String searchKeyword, Pageable pageable){
+        return boardRepository.findByTitleContaining(searchKeyword, pageable);
+    }
+
+
+
     //특정 게시글 불러오기 처리
     public Board boardView(int id){
         return boardRepository.findById(id).get();
@@ -71,5 +79,10 @@ public class BoardService {
     public void boardDelete(int id){
         boardRepository.deleteById(id);
     }
+
+
+
+
+
 
 }

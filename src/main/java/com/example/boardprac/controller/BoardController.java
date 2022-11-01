@@ -5,6 +5,7 @@ import com.example.boardprac.repository.BoardRepository;
 import com.example.boardprac.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -65,8 +66,19 @@ public class BoardController {
     @GetMapping("/board/list")  //http://localhost:8080/board/list?page=2&size=20
     public String boardList(Model model,
                             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
-        model.addAttribute("list", boardService.boardList(pageable));
-        //boardService.boardList()를 통해 반환되는 리턴값을 "list"란 이름으로 받아서 클라에 넘겨줌
+
+        Page<Board> list = boardService.boardList(pageable);
+
+        //페이지 처리
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage -4, 1);
+        int endPage = Math.min(nowPage +5, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "boardlist";
     }
 

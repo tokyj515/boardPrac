@@ -5,6 +5,9 @@ import com.example.boardprac.repository.BoardRepository;
 import com.example.boardprac.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,16 +50,30 @@ public class BoardController {
     }
 
 
-
+    /* 그냥 화면에 리스트만 쭉 불러와주는 형태, 최신글이 가장 밑에 있음
     @GetMapping("/board/list")
     public String boardList(Model model){
         model.addAttribute("list", boardService.boardList());
         //boardService.boardList()를 통해 반환되는 리턴값을 "list"란 이름으로 받아서 클라에 넘겨줌
+        return "boardlist";
+    }*/
 
 
 
+
+
+    @GetMapping("/board/list")  //http://localhost:8080/board/list?page=2&size=20
+    public String boardList(Model model,
+                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+        model.addAttribute("list", boardService.boardList(pageable));
+        //boardService.boardList()를 통해 반환되는 리턴값을 "list"란 이름으로 받아서 클라에 넘겨줌
         return "boardlist";
     }
+
+
+
+
+
 
     @GetMapping("/board/view")  //?id=1
     public String boardView(Model model, int id){

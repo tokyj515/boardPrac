@@ -3,6 +3,8 @@ package com.example.boardprac.service;
 import com.example.boardprac.entity.Board;
 import com.example.boardprac.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,9 +47,17 @@ public class BoardService {
     }
 
 
-    //게시글 리스트 처리
+    /*
+    //게시글 리스트 처리, 그냥 불러오기만 하는 것
     public List<Board> boardList(){
         return boardRepository.findAll();
+    }*/
+
+
+
+    //페이지 처리한 게시글 리스트 처리
+    public Page<Board> boardList(Pageable pageable){
+        return boardRepository.findAll(pageable);
     }
 
 
